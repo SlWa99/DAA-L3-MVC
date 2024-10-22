@@ -4,17 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
     <!-- Section Données de Base -->
     <LinearLayout
         android:id="@+id/layoutBasicInfo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="@dimen/spacing_medium"
         android:background="#E8F5E9"
         android:layout_margin="@dimen/spacing_small"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHeight_percent="0.45">
 
         <TextView
@@ -41,7 +40,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="Entrez votre nom"
-                android:layout_weight="0.7"/>
+                android:layout_weight="0.7"
+                android:inputType="text|textCapWords"
+                android:maxLines="1"
+                android:singleLine="true"/>
         </LinearLayout>
 
         <LinearLayout
@@ -61,14 +63,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="Entrez votre prénom"
-                android:layout_weight="0.7"/>
+                android:layout_weight="0.7"
+                android:inputType="text|textCapWords"
+                android:maxLines="1"
+                android:singleLine="true"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/spacing_small">
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:baselineAligned="true">
 
             <TextView
                 android:layout_width="0dp"
@@ -81,16 +87,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:maxLines="1"
+                android:singleLine="true"/>
 
             <ImageButton
                 android:id="@+id/btnDatePicker"
                 android:layout_width="0dp"
                 android:layout_weight="0.1"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/cake"
                 android:contentDescription="Sélectionner la date"/>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,29 +1,193 @@
 package ch.heigvd.iict.daa.template
 
+import android.app.DatePickerDialog
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var etDateNaissance: EditText
+    private lateinit var btnDatePicker: ImageButton
+    private lateinit var etNom: EditText
+    private lateinit var etPrenom: EditText
+    private lateinit var etEmail: EditText
+    private lateinit var etCommentaires: EditText
+    private lateinit var rgOccupation: RadioGroup
+    private lateinit var spinnerNationalite: Spinner
+    private lateinit var btnOk: Button
+    private lateinit var btnAnnuler: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialiser le Spinner
-        val spinner: Spinner = findViewById(R.id.spinnerNationalite)
+        // Initialisation des vues
+        initializeViews()
 
-        // Créer un ArrayAdapter en utilisant le fichier de ressources de chaînes
-        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
+        // Configuration du Spinner
+        setupSpinner()
+
+        // Configuration du DatePicker
+        setupDatePicker()
+
+        // Configuration des boutons
+        setupButtons()
+    }
+
+    private fun initializeViews() {
+        etNom = findViewById(R.id.etNom)
+        etPrenom = findViewById(R.id.etPrenom)
+        etDateNaissance = findViewById(R.id.etDateNaissance)
+        btnDatePicker = findViewById(R.id.btnDatePicker)
+        spinnerNationalite = findViewById(R.id.spinnerNationalite)
+        rgOccupation = findViewById(R.id.rgOccupation)
+        etEmail = findViewById(R.id.etEmail)
+        etCommentaires = findViewById(R.id.etCommentaires)
+        btnOk = findViewById(R.id.btnOk)
+        btnAnnuler = findViewById(R.id.btnAnnuler)
+    }
+
+    private fun setupSpinner() {
+        val adapter = ArrayAdapter.createFromResource(
             this,
-            R.array.nationalities, // Assurez-vous que ce tableau est défini dans res/values/strings.xml
+            R.array.nationalities,
             android.R.layout.simple_spinner_item
-        )
+        ).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
 
-        // Spécifier le layout à utiliser quand la liste d'options s'affiche
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerNationalite.adapter = adapter
 
-        // Appliquer l'adapter à le Spinner
-        spinner.adapter = adapter
+        // Optionnel : gérer la sélection du Spinner
+        spinnerNationalite.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (position > 0) {  // Si ce n'est pas "Sélectionner"
+                    val nationalite = parent?.getItemAtPosition(position).toString()
+                    // Faire quelque chose avec la nationalité sélectionnée
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Ne rien faire
+            }
+        }
+    }
+
+    private fun setupDatePicker() {
+        // Rendre le champ non éditable
+        etDateNaissance.isFocusable = false
+        etDateNaissance.isClickable = true
+
+        val dateClickListener = View.OnClickListener { showDatePicker() }
+
+        // Configurer les deux façons d'ouvrir le DatePicker
+        etDateNaissance.setOnClickListener(dateClickListener)
+        btnDatePicker.setOnClickListener(dateClickListener)
+    }
+
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+
+        // Si une date est déjà sélectionnée, l'utiliser
+        val currentDate = etDateNaissance.text.toString()
+        if (currentDate.isNotEmpty()) {
+            try {
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE)
+                sdf.parse(currentDate)?.let {
+                    calendar.time = it
+                }
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+        }
+
+        DatePickerDialog(
+            this,
+            { _, year, month, day ->
+                val date = String.format(Locale.FRANCE, "%02d/%02d/%d",
+                    day, month + 1, year)
+                etDateNaissance.setText(date)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+
+    private fun setupButtons() {
+        btnOk.setOnClickListener {
+            // Vérifier si tous les champs requis sont remplis
+            if (validateFields()) {
+                // Traiter les données du formulaire
+                processForm()
+            }
+        }
+
+        btnAnnuler.setOnClickListener {
+            // Réinitialiser tous les champs
+            resetForm()
+        }
+    }
+
+    private fun validateFields(): Boolean {
+        // Vérifier que les champs obligatoires sont remplis
+        when {
+            etNom.text.isEmpty() -> {
+                etNom.error = "Le nom est obligatoire"
+                return false
+            }
+            etPrenom.text.isEmpty() -> {
+                etPrenom.error = "Le prénom est obligatoire"
+                return false
+            }
+            etDateNaissance.text.isEmpty() -> {
+                Toast.makeText(this, "La date de naissance est obligatoire", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            spinnerNationalite.selectedItemPosition == 0 -> {
+                Toast.makeText(this, "Veuillez sélectionner une nationalité", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            rgOccupation.checkedRadioButtonId == -1 -> {
+                Toast.makeText(this, "Veuillez sélectionner une occupation", Toast.LENGTH_SHORT).show()
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun processForm() {
+        // Récupérer toutes les valeurs
+        val nom = etNom.text.toString()
+        val prenom = etPrenom.text.toString()
+        val dateNaissance = etDateNaissance.text.toString()
+        val nationalite = spinnerNationalite.selectedItem.toString()
+        val occupation = when (rgOccupation.checkedRadioButtonId) {
+            R.id.rbEtudiant -> "Étudiant"
+            R.id.rbEmploye -> "Employé"
+            else -> ""
+        }
+        val email = etEmail.text.toString()
+        val commentaires = etCommentaires.text.toString()
+
+        // Faire quelque chose avec les données (par exemple, les afficher dans un Toast)
+        Toast.makeText(this, "Formulaire validé avec succès", Toast.LENGTH_SHORT).show()
+
+        // Vous pouvez ajouter ici le code pour sauvegarder les données
+    }
+
+    private fun resetForm() {
+        etNom.text.clear()
+        etPrenom.text.clear()
+        etDateNaissance.text.clear()
+        spinnerNationalite.setSelection(0)
+        rgOccupation.clearCheck()
+        etEmail.text.clear()
+        etCommentaires.text.clear()
     }
 }
