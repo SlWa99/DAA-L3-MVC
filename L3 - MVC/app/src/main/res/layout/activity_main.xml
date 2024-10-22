@@ -1,17 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-    <TextView
-        android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+
+    <!-- Section Données de Base -->
+    <LinearLayout
+        android:id="@+id/layoutBasicInfo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/welcome"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_medium"
+        android:background="#E8F5E9"
+        android:layout_margin="@dimen/spacing_small"
+        app:layout_constraintHeight_percent="0.45">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DONNÉES DE BASE"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/spacing_medium"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/spacing_small">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Nom"/>
+
+            <EditText
+                android:id="@+id/etNom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Entrez votre nom"
+                android:layout_weight="0.7"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/spacing_small">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Prénom"/>
+
+            <EditText
+                android:id="@+id/etPrenom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Entrez votre prénom"
+                android:layout_weight="0.7"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/spacing_small">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Date de naissance"/>
+
+            <EditText
+                android:id="@+id/etDateNaissance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:focusable="false"/>
+
+            <ImageButton
+                android:id="@+id/btnDatePicker"
+                android:layout_width="0dp"
+                android:layout_weight="0.1"
+                android:layout_height="wrap_content"
+                android:contentDescription="Sélectionner la date"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/spacing_small">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Nationalité"/>
+
+            <Spinner
+                android:id="@+id/spinnerNationalite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Occupation"/>
+
+            <RadioGroup
+                android:id="@+id/rgOccupation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbEtudiant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Etudiant"
+                    android:layout_marginEnd="@dimen/spacing_medium"/>
+
+                <RadioButton
+                    android:id="@+id/rbEmploye"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Employé"/>
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Section Données Complémentaires -->
+    <LinearLayout
+        android:id="@+id/layoutComplementaryInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_medium"
+        android:background="#FFE5E5"
+        android:layout_margin="@dimen/spacing_small"
+        app:layout_constraintTop_toBottomOf="@id/layoutBasicInfo"
+        app:layout_constraintHeight_percent="0.35">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DONNÉES COMPLÉMENTAIRES"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/spacing_medium"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/spacing_small">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Adresse e-mail"/>
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:hint="Entrez votre e-mail"
+            android:inputType="textEmailAddress"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Commentaires"/>
+
+            <EditText
+                android:id="@+id/etCommentaires"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:gravity="top"/>
+        </LinearLayout>
+
+        <!-- Boutons de contrôle -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btnAnnuler"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ANNULER"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#673AB7"/>
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="OK"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="#673AB7"/>
+        </LinearLayout>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
