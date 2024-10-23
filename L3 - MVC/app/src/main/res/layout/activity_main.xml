@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <!-- Section Données de Base -->
     <LinearLayout
         android:id="@+id/layoutBasicInfo"
@@ -19,7 +20,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="DONNÉES DE BASE"
+            android:text="@string/main_base_title"
+            android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/spacing_medium"/>
 
@@ -32,14 +34,14 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="Nom"/>
+                android:layout_weight="0.5"
+                android:text="@string/main_base_name_title"/>
 
             <EditText
                 android:id="@+id/etNom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Entrez votre nom"
+                android:hint="@string/main_base_name_title"
                 android:layout_weight="0.7"
                 android:inputType="text|textCapWords"
                 android:maxLines="1"
@@ -55,14 +57,14 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="Prénom"/>
+                android:layout_weight="0.5"
+                android:text="@string/main_base_firstname_title"/>
 
             <EditText
                 android:id="@+id/etPrenom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Entrez votre prénom"
+                android:hint="@string/main_base_firstname_title"
                 android:layout_weight="0.7"
                 android:inputType="text|textCapWords"
                 android:maxLines="1"
@@ -79,8 +81,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="Date de naissance"/>
+                android:layout_weight="0.5"
+                android:text="@string/main_base_birthdate_title" />
 
             <EditText
                 android:id="@+id/etDateNaissance"
@@ -97,8 +99,9 @@
                 android:layout_weight="0.1"
                 android:layout_height="match_parent"
                 android:src="@drawable/cake"
-                android:contentDescription="Sélectionner la date"/>
+                android:contentDescription="@string/main_base_birthdate_dialog_title"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,8 +111,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="Nationalité"/>
+                android:layout_weight="0.5"
+                android:text="@string/main_base_nationality_title"/>
 
             <Spinner
                 android:id="@+id/spinnerNationalite"
@@ -121,33 +124,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="Occupation"/>
+                android:text="@string/main_base_occupation_title"/>
 
             <RadioGroup
                 android:id="@+id/rgOccupation"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
                 android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rbEtudiant"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Etudiant"
+                    android:text="@string/main_base_occupation_student"
                     android:layout_marginEnd="@dimen/spacing_medium"/>
 
                 <RadioButton
                     android:id="@+id/rbEmploye"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Employé"/>
+                    android:text="@string/main_base_occupation_worker"/>
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
@@ -167,8 +168,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="DONNÉES COMPLÉMENTAIRES"
+            android:text="@string/additional_title"
             android:textStyle="bold"
+            android:textAllCaps="true"
             android:layout_marginBottom="@dimen/spacing_medium"/>
 
         <LinearLayout
@@ -181,15 +183,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                android:text="Adresse e-mail"/>
+                android:text="@string/additional_email_title"/>
 
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:hint="Entrez votre e-mail"
-            android:inputType="textEmailAddress"/>
+                android:hint="@string/additional_email_title"
+                android:inputType="textEmailAddress"/>
         </LinearLayout>
 
         <LinearLayout
@@ -201,7 +203,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                android:text="Commentaires"/>
+                android:text="@string/additional_remarks_title"/>
 
             <EditText
                 android:id="@+id/etCommentaires"
@@ -225,7 +227,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ANNULER"
+                android:text="@string/btn_cancel"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="#673AB7"/>
 
@@ -234,7 +236,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="OK"
+                android:text="@string/btn_ok"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="#673AB7"/>
         </LinearLayout>
