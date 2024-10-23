@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spinnerNationalite: Spinner
     private lateinit var btnOk: Button
     private lateinit var btnAnnuler: Button
+    private lateinit var layoutStudentInfo: LinearLayout
+    private lateinit var layoutWorkerInfo: LinearLayout
+    private lateinit var layoutComplementaryInfo: LinearLayout
+    private lateinit var spinnerSecteur: Spinner
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,9 @@ class MainActivity : AppCompatActivity() {
 
         // Configuration des boutons
         setupButtons()
+
+        // Configuration des boutons Etudiant et Employé
+        setupOccupationRadioGroup()
     }
 
     private fun initializeViews() {
@@ -50,10 +58,18 @@ class MainActivity : AppCompatActivity() {
         etCommentaires = findViewById(R.id.etCommentaires)
         btnOk = findViewById(R.id.btnOk)
         btnAnnuler = findViewById(R.id.btnAnnuler)
+        layoutStudentInfo = findViewById(R.id.layoutStudentInfo)
+        layoutWorkerInfo = findViewById(R.id.layoutWorkerInfo)
+        layoutComplementaryInfo = findViewById(R.id.layoutComplementaryInfo)
+        spinnerSecteur = findViewById(R.id.spinnerSecteur)
+
+        layoutStudentInfo.visibility = View.GONE
+        layoutWorkerInfo.visibility = View.GONE
     }
 
     private fun setupSpinner() {
-        val adapter = ArrayAdapter.createFromResource(
+        // Configuration du Spinner pour la nationalité
+        val nationalityAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.nationalities,
             android.R.layout.simple_spinner_item
@@ -61,14 +77,40 @@ class MainActivity : AppCompatActivity() {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
 
-        spinnerNationalite.adapter = adapter
+        spinnerNationalite.adapter = nationalityAdapter
 
-        // Optionnel : gérer la sélection du Spinner
+        // Configuration du Spinner pour le secteur
+        val sectorAdapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.sectors,
+            android.R.layout.simple_spinner_item
+        ).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
+
+
+        spinnerSecteur.adapter = sectorAdapter // Assigner l'adaptateur au Spinner
+
+        // Optionnel : gérer la sélection du Spinner pour la nationalité
         spinnerNationalite.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (position > 0) {  // Si ce n'est pas "Sélectionner"
                     val nationalite = parent?.getItemAtPosition(position).toString()
                     // Faire quelque chose avec la nationalité sélectionnée
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Ne rien faire
+            }
+        }
+
+        // Optionnel : gérer la sélection du Spinner pour le secteur
+        spinnerSecteur.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (position > 0) {  // Si ce n'est pas "Sélectionner"
+                    val secteur = parent?.getItemAtPosition(position).toString()
+                    // Faire quelque chose avec le secteur sélectionné
                 }
             }
 
@@ -177,8 +219,23 @@ class MainActivity : AppCompatActivity() {
 
         // Faire quelque chose avec les données (par exemple, les afficher dans un Toast)
         Toast.makeText(this, "Formulaire validé avec succès", Toast.LENGTH_SHORT).show()
+    }
 
-        // Vous pouvez ajouter ici le code pour sauvegarder les données
+    private fun setupOccupationRadioGroup() {
+        rgOccupation.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rbEtudiant -> {
+                    Toast.makeText(this, "Étudiant sélectionné", Toast.LENGTH_SHORT).show()
+                    layoutStudentInfo.visibility = View.VISIBLE
+                    layoutWorkerInfo.visibility = View.GONE
+                }
+                R.id.rbEmploye -> {
+                    Toast.makeText(this, "Employé sélectionné", Toast.LENGTH_SHORT).show()
+                    layoutStudentInfo.visibility = View.GONE
+                    layoutWorkerInfo.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     private fun resetForm() {
@@ -189,5 +246,7 @@ class MainActivity : AppCompatActivity() {
         rgOccupation.clearCheck()
         etEmail.text.clear()
         etCommentaires.text.clear()
+        layoutStudentInfo.visibility = View.GONE
+        layoutWorkerInfo.visibility = View.GONE
     }
 }

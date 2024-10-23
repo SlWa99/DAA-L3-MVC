@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primaryColor">#673AB7</color> <!-- Couleur pour la barre d'application -->
+    <color name="primaryLightColor">#E8F5E9</color> <!-- Couleur de fond pour la section de données de base -->
+    <color name="primaryDarkColor">#FFF3E0</color> <!-- Couleur de fond pour les sections spécifiques (étudiants / employés) -->
+    <color name="complementaryColor">#FFE5E5</color> <!-- Couleur de fond pour la section de données complémentaires -->
+    <color name="buttonColor">#E626FF</color> <!-- Couleur des boutons -->
 </resources>
