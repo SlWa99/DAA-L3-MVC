@@ -2,9 +2,11 @@ package ch.heigvd.iict.daa.template
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import ch.heigvd.iict.daa.labo3.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -209,16 +211,52 @@ class MainActivity : AppCompatActivity() {
         val prenom = etPrenom.text.toString()
         val dateNaissance = etDateNaissance.text.toString()
         val nationalite = spinnerNationalite.selectedItem.toString()
+
         val occupation = when (rgOccupation.checkedRadioButtonId) {
             R.id.rbEtudiant -> "Étudiant"
             R.id.rbEmploye -> "Employé"
             else -> ""
         }
+
         val email = etEmail.text.toString()
         val commentaires = etCommentaires.text.toString()
 
+
+
+        // Création d'une instance de Student ou Worker
+        val person = if (occupation == "Étudiant") {
+            // Récupérer les données spécifiques aux étudiants
+            val ecole = findViewById<EditText>(R.id.etEcole).text.toString()
+            val anneeDiplome = findViewById<EditText>(R.id.etAnneeDiplome).text.toString().toIntOrNull() ?: 0 // Utiliser 0 si non valide
+
+            Student(nom, prenom, parseDate(dateNaissance), nationalite, ecole, anneeDiplome, email, commentaires)
+        } else {
+            // Récupérer les données spécifiques aux employés
+            val entreprise = findViewById<EditText>(R.id.etEntreprise).text.toString()
+            val secteur = spinnerSecteur.selectedItem.toString() // Récupérer la valeur du Spinner
+            val experience = findViewById<EditText>(R.id.etExperience).text.toString().toIntOrNull() ?: 0 // Utiliser 0 si non valide
+
+            Worker(nom, prenom, parseDate(dateNaissance), nationalite, entreprise, secteur, experience, email, commentaires)
+        }
+
+        // Afficher l'objet créé dans les logs
+        Log.d("MainActivity", person.toString())
+
+
         // Faire quelque chose avec les données (par exemple, les afficher dans un Toast)
         Toast.makeText(this, "Formulaire validé avec succès", Toast.LENGTH_SHORT).show()
+    }
+
+
+    private fun parseDate(date: String): Calendar {
+        val calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE)
+        try {
+            calendar.time = sdf.parse(date) ?: Date()
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return calendar
     }
 
     private fun setupOccupationRadioGroup() {
