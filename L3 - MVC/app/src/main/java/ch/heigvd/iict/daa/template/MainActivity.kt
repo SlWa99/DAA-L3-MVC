@@ -225,12 +225,10 @@ class MainActivity : AppCompatActivity() {
         rgOccupation.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.rbEtudiant -> {
-                    Toast.makeText(this, "Étudiant sélectionné", Toast.LENGTH_SHORT).show()
                     layoutStudentInfo.visibility = View.VISIBLE
                     layoutWorkerInfo.visibility = View.GONE
                 }
                 R.id.rbEmploye -> {
-                    Toast.makeText(this, "Employé sélectionné", Toast.LENGTH_SHORT).show()
                     layoutStudentInfo.visibility = View.GONE
                     layoutWorkerInfo.visibility = View.VISIBLE
                 }
