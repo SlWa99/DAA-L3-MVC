@@ -27,6 +27,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var layoutWorkerInfo: LinearLayout
     private lateinit var layoutComplementaryInfo: LinearLayout
     private lateinit var spinnerSecteur: Spinner
+    private lateinit var etEcole: EditText
+    private lateinit var etAnnee: EditText
+    private lateinit var etEntreprise : EditText
+    private lateinit var etExperience: EditText
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +70,10 @@ class MainActivity : AppCompatActivity() {
         layoutWorkerInfo = findViewById(R.id.layoutWorkerInfo)
         layoutComplementaryInfo = findViewById(R.id.layoutComplementaryInfo)
         spinnerSecteur = findViewById(R.id.spinnerSecteur)
+        etAnnee = findViewById(R.id.etAnneeDiplome)
+        etEcole = findViewById(R.id.etEcole)
+        etEntreprise = findViewById(R.id.etEntreprise)
+        etExperience = findViewById(R.id.etExperience)
 
         layoutStudentInfo.visibility = View.GONE
         layoutWorkerInfo.visibility = View.GONE
@@ -282,6 +292,12 @@ class MainActivity : AppCompatActivity() {
         rgOccupation.clearCheck()
         etEmail.text.clear()
         etCommentaires.text.clear()
+        etEcole.text.clear()
+        etAnnee.text.clear()
+        etExperience.text.clear()
+        etEntreprise.text.clear()
+        spinnerSecteur.setSelection(0)
+
         layoutStudentInfo.visibility = View.GONE
         layoutWorkerInfo.visibility = View.GONE
     }
