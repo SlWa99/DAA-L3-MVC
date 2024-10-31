@@ -53,6 +53,8 @@ class MainActivity : AppCompatActivity() {
 
         // Configuration des boutons Etudiant et Employé
         setupOccupationRadioGroup()
+
+        fillStudentField()
     }
 
     private fun initializeViews() {
@@ -299,6 +301,42 @@ class MainActivity : AppCompatActivity() {
         spinnerSecteur.setSelection(0)
 
         layoutStudentInfo.visibility = View.GONE
+        layoutWorkerInfo.visibility = View.GONE
+    }
+
+    private fun fillStudentField() {
+        val exampleStudent = Student(
+            "Dreher",
+            "Matthias",
+            Calendar.getInstance().apply {
+                set(Calendar.YEAR, 1998)
+                set(Calendar.MONTH, Calendar.APRIL)
+                set(Calendar.DAY_OF_MONTH, 8)
+            },
+            "Allemande",
+            "HEIG-VD",
+            2023,
+            "m.dreher@email.com",
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        )
+
+        // Remplissage des champs avec les valeurs de l'exemple d'étudiant
+        etNom.setText(exampleStudent.name)
+        etPrenom.setText(exampleStudent.firstName)
+        etDateNaissance.setText(
+            SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(exampleStudent.birthDay.time)
+        )
+        val nationalitePosition = (spinnerNationalite.adapter as ArrayAdapter<String>)
+            .getPosition(exampleStudent.nationality)
+        spinnerNationalite.setSelection(nationalitePosition)
+        rgOccupation.check(R.id.rbEtudiant)
+        etEmail.setText(exampleStudent.email)
+        etCommentaires.setText(exampleStudent.remark)
+        etEcole.setText(exampleStudent.university)
+        etAnnee.setText(exampleStudent.graduationYear.toString())
+
+        // Afficher le layout pour les informations de l'étudiant
+        layoutStudentInfo.visibility = View.VISIBLE
         layoutWorkerInfo.visibility = View.GONE
     }
 }
