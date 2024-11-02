@@ -375,8 +375,9 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="0.6"
-                android:inputType="textMultiLine"
-                android:gravity="top"/>
+                android:inputType="textMultiLine|textAutoCorrect"
+                android:gravity="top"
+                android:scrollbars="vertical"/>
         </LinearLayout>
 
         <!-- Boutons de contrôle -->
