@@ -111,7 +111,6 @@ etCommentaires.setOnEditorActionListener { _, actionId, _ ->
         false
     }
 }
-
 ```
 
 == Question 4.5
