@@ -1,4 +1,11 @@
 package ch.heigvd.iict.daa.template
+/**
+ * Nom du fichier : MainActivity.kt
+ * Description    : Activité principale de l'application qui gère l'interface utilisateur
+ *                  et les interactions.
+ * Auteur         : Bugna, Slimani & Steiner
+ * Date           : 17 octobre 2024
+ */
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -31,8 +38,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etAnnee: EditText
     private lateinit var etEntreprise : EditText
     private lateinit var etExperience: EditText
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -146,6 +151,11 @@ class MainActivity : AppCompatActivity() {
         btnDatePicker.setOnClickListener(dateClickListener)
     }
 
+    /**
+     * Affiche un DatePickerDialog permettant à l'utilisateur de sélectionner une date.
+     * La méthode récupère également la date actuelle (ou la date précédemment saisie)
+     * pour initialiser le calendrier à la bonne date dans le dialogue.
+     */
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
 
@@ -162,6 +172,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Affiche le Dialog de sélection de date
         DatePickerDialog(
             this,
             { _, year, month, day ->
